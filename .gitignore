@@ -1,0 +1,11 @@
+# editor
+.vscode/
+
+
+# binary
+build/
+*/__pycache__/*
+*.swp
+*.pyc
+
+

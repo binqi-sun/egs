@@ -1,0 +1,49 @@
+digraph DAG {
+    fontname="Calibri";
+    rankdir=TB;
+    node [shape = circle, width = 2.5, height = 2.5, fixedsize = true];
+    ranksep=2.0;  // Increase distance between ranks
+    nodesep=2.0;  // Increase distance between nodes in the same rank
+    0 [label="Sync@0ms, WCET=0ms", style="dotted"]
+    1 [label="ScheduleTest.sink.reaction_1, WCET=1ms"]
+    2 [label="ScheduleTest.sink.reaction_2, WCET=1ms"]
+    3 [label="ScheduleTest.source2.reaction_0, WCET=6ms"]
+    4 [label="ScheduleTest.source.reaction_0, WCET=6ms"]
+    5 [label="ScheduleTest.sink.reaction_0, WCET=1ms"]
+    6 [label="Sync@5ms, WCET=0ms", style="dotted"]
+    7 [label="Dummy=5ms, WCET=5ms", style="dotted"]
+    8 [label="ScheduleTest.sink.reaction_0, WCET=1ms"]
+    9 [label="Sync@10ms, WCET=0ms", style="dotted"]
+    10 [label="Dummy=5ms, WCET=5ms", style="dotted"]
+    {
+        rank = same;
+        0;
+        6;
+        7;
+        9;
+        10;
+    }
+    0 -> 1
+    0 -> 2
+    0 -> 3
+    0 -> 4
+    0 -> 5
+    1 -> 2
+    3 -> 2
+    4 -> 1
+    5 -> 1
+    0 -> 7
+    7 -> 6
+    6 -> 8
+    5 -> 6
+    1 -> 8
+    2 -> 8
+    5 -> 8
+    6 -> 10
+    10 -> 9
+    1 -> 9
+    2 -> 9
+    3 -> 9
+    4 -> 9
+    8 -> 9
+}
