@@ -2,9 +2,10 @@ import numpy as np
 from scipy.sparse import csr_matrix
 from utils.dag import DAG
 
+
 def parse_dot(file_path):
     period_pat = 'T='
-    node_pat = '[label=\"'
+    node_pat = 'C='
     edge_pat = '->'
 
     dag = {}
@@ -15,7 +16,7 @@ def parse_dot(file_path):
     with open(file_path, 'r') as f:
         for line in f.readlines():
             if period_pat in line:
-                period = int(line.split(period_pat)[1].split('\"')[0])
+                period = int(line.split(period_pat)[1].split(';')[0])
 
             elif node_pat in line:
                 wcet.append(int(line.split(node_pat)[1].split('\"')[0]))
@@ -26,10 +27,10 @@ def parse_dot(file_path):
                 target_node.append(int(lst[1].split(';')[0]))
 
     wcet = np.array(wcet, dtype=np.int32)
-    adj_mat = csr_matrix(
-        (np.full_like(source_node, True), 
-        (np.array(source_node), np.array(target_node)))).toarray().astype(bool)
-    
+    adj_mat = np.zeros((len(wcet), len(wcet)), dtype=bool)
+    for i, j in zip(source_node, target_node):
+        adj_mat[i, j] = True
+
     dag["wcet"] = wcet
     dag["adj_mat"] = adj_mat
     dag["period"] = period
@@ -64,9 +65,9 @@ def parse_dot_lf(file_path):
 
     wcet = np.array(wcet, dtype=np.int32)
     adj_mat = csr_matrix(
-        (np.full_like(source_node, True), 
-        (np.array(source_node), np.array(target_node)))).toarray().astype(bool)
-    
+        (np.full_like(source_node, True),
+         (np.array(source_node), np.array(target_node)))).toarray().astype(bool)
+
     dag["wcet"] = wcet
     dag["adj_mat"] = adj_mat
     dag["period"] = period

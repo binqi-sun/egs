@@ -1,7 +1,7 @@
 import copy
 import numpy as np
 import tensorflow as tf
-from data_loader.dag_loader import parse_dot_lf as parse_dot
+from data_loader.dag_loader import parse_dot
 from utils.dag import DAG, padding
 
 

@@ -1,5 +1,6 @@
 import argparse
 
+
 def get_args():
     argparser = argparse.ArgumentParser(description=__doc__)
     argparser.add_argument(
@@ -15,12 +16,12 @@ def get_args():
     )
     argparser.add_argument(
         '--in_dot',
-        default='data/in_dag.dot',
+        default='data/ex1.dot',
         help='The input dot file'
     )
     argparser.add_argument(
         '--out_dot',
-        default='data/out_dag.dot',
+        default='data/ex1_out.dot',
         help='The output dot file'
     )
     argparser.add_argument(
